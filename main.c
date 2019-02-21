@@ -29,18 +29,18 @@ struct GridPoint
 	float temperature;
 };
 
-GridPoint** AllocateRoom();
-void FreeRoom(GridPoint** room);
-void InitializeRoom(GridPoint** room);
-void CopyNewToOld(GridPoint** oldRoom, GridPoint** newRoom);
-void CalculateNew(GridPoint** oldRoom, GridPoint** newRoom);
-void PrintGridToFile(GridPoint** room);
+struct GridPoint** AllocateRoom();
+void FreeRoom(struct GridPoint** room);
+void InitializeRoom(struct GridPoint** room);
+void CopyNewToOld(struct GridPoint** oldRoom, struct GridPoint** newRoom);
+void CalculateNew(struct GridPoint** oldRoom, struct GridPoint** newRoom);
+void PrintGridToFile(struct GridPoint** room);
 
 int main(int argc, char* argv[])
 {
 	//add two to the grid width and height to create walls
-	GridPoint** newRoom = AllocateRoom();
-	GridPoint** oldRoom = AllocateRoom();
+        struct GridPoint** newRoom = AllocateRoom();
+	struct GridPoint** oldRoom = AllocateRoom();
 	InitializeRoom(newRoom);
 
 	for (int i = 0; i < ITERATIONS; i++)
@@ -102,7 +102,7 @@ void PrintGridToFile(struct GridPoint** room)
 	{
 		for (int j = 1; j < ROWS + 1; j++)
 		{
-			GridPoint point = room[j][i];
+			struct GridPoint point = room[j][i];
 			//printf("%d:%d--%f\n", j, i, point.temperature);
 			//usleep(1000);
 			if (point.temperature > 250)
@@ -152,17 +152,17 @@ void PrintGridToFile(struct GridPoint** room)
 	system("convert c.pnm c.gif"); /* png not supported on comp */
 }
 
-GridPoint** AllocateRoom()
+struct GridPoint** AllocateRoom()
 {
-	GridPoint** grid = (GridPoint**)malloc(sizeof(GridPoint*) * (COLS + 2));
+	struct GridPoint** grid = (struct GridPoint**)malloc(sizeof(struct GridPoint*) * (COLS + 2));
 	for (int i = 0; i < COLS + 2; i++)
 	{
-		grid[i] = (GridPoint*)malloc(sizeof(GridPoint) * (ROWS + 2));
+		grid[i] = (struct GridPoint*)malloc(sizeof(struct GridPoint) * (ROWS + 2));
 	}
 	return grid;
 }
 
-void FreeRoom(GridPoint** room)
+void FreeRoom(struct GridPoint** room)
 {
 	for (int i = 0; i < COLS; i++)
 		free(room[i]);
@@ -172,7 +172,7 @@ void FreeRoom(GridPoint** room)
 /*
 * initialize the room to its default values
 */
-void InitializeRoom(GridPoint** room)
+void InitializeRoom(struct GridPoint** room)
 {
 	const int fireplace_start = (ROWS / 10) * 3 + 1; //start at 40%
 	const int fireplace_end = (ROWS / 10) * 7 + 1; //end at 80%
