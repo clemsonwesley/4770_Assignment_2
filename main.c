@@ -1,5 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <mpi.h>
+
 
 //colors for output file
 #define WHITE "15 15 15 "
@@ -41,7 +43,12 @@ int main(int argc, char* argv[])
 	//add two to the grid width and height to create walls
         struct GridPoint** newRoom = AllocateRoom();
 	struct GridPoint** oldRoom = AllocateRoom();
+        int rank, numtasks;
+
 	InitializeRoom(newRoom);
+        MPI_Init(&argc, &argv);
+        MPI_Comm_rank(MPI_COMM_WORLD, &rank);
+        MPI_Comm_size(MPI_COMM_WORLD, &numtasks);
 
 	for (int i = 0; i < ITERATIONS; i++)
 	{
