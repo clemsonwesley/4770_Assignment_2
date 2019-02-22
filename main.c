@@ -23,7 +23,7 @@
 #define FIRE_TEMP 300
 #define MESH_TEMP 20
 //# of iterations to calculate
-#define ITERATIONS 50000
+#define ITERATIONS 1000
 
 struct GridPoint
 {
@@ -80,7 +80,7 @@ int main(int argc, char* argv[])
 		//need to redo mpi stuff here
 		MPI_Barrier(MPI_COMM_WORLD);
 	}
-	PrintGridToFile(newRoom);
+	if(rank == 0) PrintGridToFile(newRoom);
 
 	//FreeRoom(newRoom);
 	//FreeRoom(oldRoom);
@@ -123,8 +123,8 @@ void TransferWork(struct GridPoint** workSpace, int startPosition, int endPositi
 void CopyNewToOld(struct GridPoint** oldRoom, struct GridPoint** newRoom)
 {
 	int i, j;
-	for (i = 0; i < ROWS + 2; i++)
-		for (j = 0; j < COLS + 2; j++)
+	for (i = 0; i < COLS + 2; i++)
+		for (j = 0; j < ROWS + 2; j++)
 			oldRoom[i][j] = newRoom[i][j];
 }
 
@@ -136,7 +136,7 @@ void CalculateNew(struct GridPoint** oldRoom, struct GridPoint** newRoom, int st
 	int i, j;
 	for (i = startPosition; i < endPosition; i++)
 	{
-		for (j = 0; j < COLS + 2; j++)
+		for (j = 0; j < ROWS + 2; j++)
 		{
 			//if the temp can't change we're probably on a fire so skip the calculation
 			if (oldRoom[i][j].canTempChange == 0)
