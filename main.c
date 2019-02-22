@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
-#include <mpi/mpi.h>
+#include <mpi.h>
 
 //colors for output file
 #define WHITE "15 15 15 "
@@ -23,7 +23,7 @@
 #define FIRE_TEMP 300
 #define MESH_TEMP 20
 //# of iterations to calculate
-#define ITERATIONS 1000
+#define ITERATIONS 50000
 
 struct GridPoint
 {
@@ -74,9 +74,9 @@ int main(int argc, char* argv[])
 		int endPosition = (int)roundf(blockSize * (rank + 1));
 		//printf("process %d will start at %d and end at %d\n", rank, startPosition, endPosition);
 		CalculateNew(oldRoom, newRoom, startPosition, endPosition);
-		printf("process %d has finished calculating at iteration %d\n", rank, i);
+		//printf("process %d has finished calculating at iteration %d\n", rank, i);
 		TransferWork(newRoom, startPosition, endPosition);
-		printf("process %d has finished transferring work at iteration %d\n", rank, i);
+		//printf("process %d has finished transferring work at iteration %d\n", rank, i);
 		//need to redo mpi stuff here
 		MPI_Barrier(MPI_COMM_WORLD);
 	}
@@ -91,8 +91,8 @@ int main(int argc, char* argv[])
 void TransferWork(struct GridPoint** workSpace, int startPosition, int endPosition)
 {
 	const float blockSize = (float)(COLS + 2) / (float)numTasks; //get size that this will be calculating
-	MPI_Request requests[numTasks - 1];
-	MPI_Status statuses[numTasks - 1];
+	MPI_Request requests[numTasks + 1];
+	MPI_Status statuses[numTasks + 1];
 	int transferSize = (endPosition - startPosition) * (ROWS + 2);
 	//converting this to a 1D array so it can be sent over MPI (hopefully)
 	struct GridPoint* gridStart = workSpace[startPosition];
@@ -112,7 +112,7 @@ void TransferWork(struct GridPoint** workSpace, int startPosition, int endPositi
 	if(rank != numTasks - 1)
 	{
 		const int recvSize = ((int)roundf(blockSize * (rank + 2)) - (int)roundf(blockSize * (rank + 1))) * (ROWS + 2);
-		MPI_Recv((struct GridPoint*) (gridStart + transferSize), recvSize, gridPointType, rank + 1, 1, MPI_COMM_WORLD, &statuses[rank - 1]);
+		MPI_Recv((struct GridPoint*) (gridStart + transferSize), recvSize, gridPointType, rank + 1, 1, MPI_COMM_WORLD, &statuses[rank]);
 	}
 }
 
