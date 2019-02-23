@@ -115,7 +115,7 @@ void TransferWork(struct GridPoint* workSpace, int startPosition, int endPositio
 	{
 		const int recvSize = ((int)roundf(blockSize * (rank + 2)) - (int)roundf(blockSize * (rank + 1))) * (ROWS + 2);
 		printf("receiving size %d\n", recvSize);
-		MPI_Recv(&workSpace + startPosition, recvSize, gridPointType, rank + 1, 1, MPI_COMM_WORLD,
+		MPI_Recv(&workSpace[endPosition-1], recvSize, gridPointType, rank + 1, 1, MPI_COMM_WORLD,
 		         &statuses[rank]);
 	}
 }
