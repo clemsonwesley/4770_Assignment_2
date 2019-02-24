@@ -3,7 +3,7 @@ Wesley Knight
 Austin Allison
 Mary Fetch
 
-For out project to run properly, it must be compiled with the math library (-lm).
+For our project to run properly, it must be compiled with the math library (-lm).
 
 Wes created a GitHub repository so we could all share the work. Conner had finished the sequential version
 very quickly after this was created and uploaded the work for us to all see. From here, Wesley began
