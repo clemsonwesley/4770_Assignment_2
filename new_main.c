@@ -62,7 +62,7 @@ int main(int argc, char* argv[])
 	struct GridPoint* newRoom = AllocateRoom();
 	struct GridPoint* oldRoom = AllocateRoom();
 	if(rank == 0) InitializeRoom(newRoom);
-	MPI_Scatter(newRoom, (COLS + 2) * (ROWS + 2), gridPointType, newRoom, (COLS + 2) * (ROWS + 2), gridPointType, 0, MPI_COMM_WORLD);
+	MPI_Scatter(newRoom, (COLS + 2) * (ROWS + 2)/numTasks, gridPointType, newRoom, (COLS + 2) * (ROWS + 2)/numTasks, gridPointType, 0, MPI_COMM_WORLD);
 	printf("room scattered\n");
 	PrintGridToFile(newRoom);
 	const float blockSize = (float)(COLS + 2) / (float)numTasks; //get size that this will be calculating
@@ -137,10 +137,10 @@ void TransferWork(struct GridPoint* workSpace, int startPosition, int endPositio
 		printf("receiving size %d\n", rank);
 		const int recvSize = ((int)roundf(blockSize * (rank + 2)) - (int)roundf(blockSize * (rank + 1))) * (ROWS + 2);
 		printf("%d", rank);
-		MPI_Recv(&workSpace[endPosition-1], recvSize, gridPointType, rank-1, 1, MPI_COMM_WORLD,
+		MPI_Recv(&workSpace[endPosition+1], recvSize, gridPointType, rank-1, 1, MPI_COMM_WORLD,
 		         &statuses[rank]);
 
-		MPI_Recv(&workSpace[endPosition-1], recvSize, gridPointType, rank+1, 1, MPI_COMM_WORLD,
+		MPI_Recv(&workSpace[endPosition+1], recvSize, gridPointType, rank+1, 1, MPI_COMM_WORLD,
 		         &statuses[rank]);
 		MPI_Send(workSpace, transferSize, gridPointType, rank + 1, 1, MPI_COMM_WORLD);
 	}
@@ -150,7 +150,7 @@ void TransferWork(struct GridPoint* workSpace, int startPosition, int endPositio
 		printf("reached rank == numTasks -1 send: %d\n", rank);
 		MPI_Send(workSpace, transferSize, gridPointType, rank - 1, 1, MPI_COMM_WORLD);
 		const int recvSize = ((int)roundf(blockSize * (rank + 2)) - (int)roundf(blockSize * (rank + 1))) * (ROWS + 2);
-		MPI_Recv(&workSpace[endPosition+1], recvSize, gridPointType, rank-1, 1, MPI_COMM_WORLD,
+		MPI_Recv(&workSpace[endPosition-1], recvSize, gridPointType, rank-1, 1, MPI_COMM_WORLD,
 						 &statuses[rank]);
 	}
 
