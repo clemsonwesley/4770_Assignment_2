@@ -80,7 +80,7 @@ int main(int argc, char* argv[])
 		//need to redo mpi stuff here
 		MPI_Barrier(MPI_COMM_WORLD);
 	}
-	if(rank == 0) PrintGridToFile(newRoom);
+	if (rank == 0) PrintGridToFile(newRoom);
 
 	//FreeRoom(newRoom);
 	//FreeRoom(oldRoom);
@@ -93,10 +93,10 @@ void TransferWork(struct GridPoint** workSpace, int startPosition, int endPositi
 	const float blockSize = (float)(COLS + 2) / (float)numTasks; //get size that this will be calculating
 	MPI_Request requests[numTasks + 1];
 	MPI_Status statuses[numTasks + 1];
-	int transferSize = (endPosition - startPosition) * (ROWS + 2);
+	const int transferSize = (endPosition - startPosition - 1) * (ROWS + 2);
 	//converting this to a 1D array so it can be sent over MPI (hopefully)
 	struct GridPoint* gridStart = workSpace[startPosition];
-	if (rank != numTasks - 1)
+	/*if (rank != numTasks - 1)
 	{
 		MPI_Send(gridStart, transferSize, gridPointType, rank + 1, 1, MPI_COMM_WORLD);
 	}
@@ -104,15 +104,16 @@ void TransferWork(struct GridPoint** workSpace, int startPosition, int endPositi
 	{
 		const int recvSize = ((int)roundf(blockSize * (rank)) - (int)roundf(blockSize * (rank - 1))) * (ROWS + 2);
 		MPI_Recv((struct GridPoint*) (gridStart - recvSize), recvSize, gridPointType, rank - 1, 1, MPI_COMM_WORLD, &statuses[rank - 1]);
-	}
-	if(rank != 0)
+	}*/
+	if (rank == 0)
 	{
-		MPI_Send(gridStart, transferSize, gridPointType, rank - 1, 1, MPI_COMM_WORLD);
+		MPI_Send(gridStart, transferSize, gridPointType, rank + 1, 1, MPI_COMM_WORLD);
 	}
-	if(rank != numTasks - 1)
+	else
 	{
-		const int recvSize = ((int)roundf(blockSize * (rank + 2)) - (int)roundf(blockSize * (rank + 1))) * (ROWS + 2);
-		MPI_Recv((struct GridPoint*) (gridStart + transferSize), recvSize, gridPointType, rank + 1, 1, MPI_COMM_WORLD, &statuses[rank]);
+		const int recvSize = ((int)roundf(blockSize * (rank + 2)) - (int)roundf(blockSize * (rank + 1))) * (ROWS);
+		MPI_Recv(workSpace[startPosition], recvSize, gridPointType, rank - 1, 1, MPI_COMM_WORLD,
+		         &statuses[rank]);
 	}
 }
 
