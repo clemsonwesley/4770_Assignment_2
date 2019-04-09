@@ -1,1 +1,22 @@
-new file
+Question 1: Find the mean, median, and standard deviation of the ratings for each of the movie genres. For each statistic
+(mean, median, or standard deviation), only use a single MapReduce program.
+
+Question 2: Using a single MapReduce program, identify the user who provides the most rating. Which genre does this user
+watch the most?
+
+
+
+Relevant Links:
+
+Stackoverflow about computing average of numbers using MapReduce:
+https://stackoverflow.com/questions/10667575/find-the-average-of-numbers-using-mapreduce
+
+
+Using Hadoop's MapReduce:
+https://www.michael-noll.com/tutorials/writing-an-hadoop-mapreduce-program-in-python/
+
+
+Medium.com Hadoop MapReduce information:
+https://medium.com/@rrfd/your-first-map-reduce-using-hadoop-with-python-and-osx-ca3b6f3dfe78
+
+
