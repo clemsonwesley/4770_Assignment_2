@@ -23,9 +23,7 @@ for line in sys.stdin:
             if(len(ratings) < 2): stdDev = ratings[0]
             else: stdDev = stdev(ratings)
             med = median(ratings)
-            results[current_genre].append(avg)
-            results[current_genre].append(med)
-            results[current_genre].append(stdDev)
+            results[current_genre] = [avg, med, stdDev]
         current_genre = ratingInfo[0]
         ratings.clear()
         ratings.append(float(ratingInfo[1]))
