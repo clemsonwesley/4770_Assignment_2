@@ -33,12 +33,14 @@ for line in sys.stdin:
     else:
         ratings.append(float(ratingInfo[1]))
 
+print(results)
+
 print('\nOutput for sample mean caluclation:')
 for element in results:
     print('{0}\t{1}'.format(element, results[element][0]))
 print('\nOutput for sample median caluclation:')
 for element in results:
-    print('{0}\t{1}'.format(element, results[element][0]))
+    print('{0}\t{1}'.format(element, results[element][1]))
 print('\nOutput for sample standard deviation caluclation:')
 for element in results:
-    print('{0}\t{1}'.format(element, results[element][0]))
+    print('{0}\t{1}'.format(element, results[element][2]))
