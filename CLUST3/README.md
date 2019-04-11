@@ -28,8 +28,6 @@ you may need to change the name of "movies" file in QuestionOneReduce.py, curren
 
 Similarly to Question One, you must have the "movies.csv" file copied to the current working directory. To do this see the section "Pulling the movies.csv file"
 
-`python3 QuestionTwoMap.py < SampleRatings.csv | sort | python3 QuestionTwoReduce.py`
-
 #### Running the Question Two MapReduce
 
 Once you have met the prerequisites you can run the program using:
