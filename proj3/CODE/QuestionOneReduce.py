@@ -9,6 +9,7 @@ current_genre = None
 ratings = []
 
 results = defaultdict(list)
+#results = {}
 
 for line in sys.stdin:
     line = line.strip()
@@ -16,6 +17,7 @@ for line in sys.stdin:
     ratingInfo = line.split("\t")
     #print('Values: {0}\t{1}\t{2}\n'.format(current_genre, current_rating_sum, current_rating_count))
     if current_genre != ratingInfo[0]:
+       #print("hey")
         if(current_genre != None):
             avg = mean(ratings)
             stdDev = float
@@ -31,14 +33,12 @@ for line in sys.stdin:
     else:
         ratings.append(float(ratingInfo[1]))
 
-print(results)
-
 print('\nOutput for sample mean caluclation:')
 for element in results:
-    print('{0}\t{1}'.format(element, results[element][0]))
+    print('{0}\t\t{1}'.format(element, results[element][0]))
 print('\nOutput for sample median caluclation:')
 for element in results:
-    print('{0}\t{1}'.format(element, results[element][1]))
+    print('{0}\t\t{1}'.format(element, results[element][1]))
 print('\nOutput for sample standard deviation caluclation:')
 for element in results:
-    print('{0}\t{1}'.format(element, results[element][2]))
+    print('{0}\t\t{1}'.format(element, results[element][2]))
