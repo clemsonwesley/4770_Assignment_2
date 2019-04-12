@@ -3,7 +3,7 @@ import csv
 
 movieList = {}
 
-with open("SampleMovies.csv", mode = 'r') as inFile:
+with open("./movies.csv", mode = 'r') as inFile:
     reader = csv.reader(inFile)
     for row in reader:
         movieList[int(row[0])] = row[2]

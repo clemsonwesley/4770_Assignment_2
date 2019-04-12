@@ -8,7 +8,7 @@
 
 To run the application you must first pull the movies.csv file in to the working directory that you plan to use to run the application, to do this use the command:
 
-`hdfs dfs -cat /repository/movielens/movies.csv | sed 1d > SampleMovies.csv`
+`hdfs dfs -cat /repository/movielens/movies.csv | sed 1d > movies.csv`
 
 #### Running the Question One Mapreduce application
 
