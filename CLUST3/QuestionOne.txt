@@ -1,0 +1,62 @@
+Output for sample mean caluclation:
+Film-Noir       3.9408055354000218
+Drama   3.6742773734853547
+Fantasy 3.5029912314315985
+Thriller        3.5126902934511794
+Horror  3.275260214307868
+(no genres listed)      3.208014943114281
+Romance 3.5424619995390905
+Children        3.4166406309798836
+Adventure       3.507091937178361
+Action  3.4544531514134182
+Mystery 3.6615097685590157
+Crime   3.6785019629867692
+IMAX    3.637097658372336
+War     3.8032667825565434
+Documentary     3.722772310125531
+Animation       3.610498964247507
+Musical 3.5439135923140777
+Comedy  3.4174603547910225
+Sci-Fi  3.455172838867968
+
+Output for sample median caluclation:
+Film-Noir       4.0
+Drama   4.0
+Fantasy 3.5
+Thriller        3.5
+Horror  3.5
+(no genres listed)      3.5
+Romance 4.0
+Children        3.5
+Adventure       3.5
+Action  3.5
+Mystery 4.0
+Crime   4.0
+IMAX    4.0
+War     4.0
+Documentary     4.0
+Animation       4.0
+Musical 4.0
+Comedy  3.5
+Sci-Fi  3.5
+
+Output for sample standard deviation caluclation:
+Film-Noir       0.9154781611402477
+Drama   1.002524350894216
+Fantasy 1.0867500247329882
+Thriller        1.0398685086065347
+Horror  1.1520617325923062
+(no genres listed)      1.2310507794221146
+Romance 1.046780167005858
+Children        1.1010527199833091
+Adventure       1.0675220659603486
+Action  1.0721365559782599
+Mystery 1.0119406716579022
+Crime   1.0132314135781613
+IMAX    1.0274731139134385
+War     0.9968902171996887
+Documentary     1.0220074103047196
+Animation       1.0317178473795843
+Musical 1.0627111413546169
+Comedy  1.0850123560000309
+Sci-Fi  1.0916316918987354
